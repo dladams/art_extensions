@@ -123,7 +123,7 @@ int ArtServiceHelper::addService(string name, string sval, bool isFile) {
       if ( cfg_file.get_if_present<ParameterSet>("services", cfg_services) ) {
         servicesHasName = cfg_services.has_key(name);
         if ( cfg_services.get_if_present<ParameterSet>("user", cfg_user) ) {
-          userHasName = cfg_services.has_key(name);
+          userHasName = cfg_user.has_key(name);
         }
       }
       if ( userHasName ) {
