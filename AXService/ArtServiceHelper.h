@@ -41,7 +41,8 @@ public:
   // Add a service.
   //   name - Name of the service, e.g. "TFileService"
   //   sval - if not isFile, configuration string for the service, e.g. for TFileService:
-  //          TFileService: {service_type: "TFileService" fileName: "test.root"}
+  //          service_type: "TFileService" fileName: "test.root"
+  //          Note this is just the contents, not the full named block.
   //          if isFile, base file name. Path to locate file is $FHICL_FILE_PATH.
   // Configuration format is the same as that found in the services block of an fcl file.
   // Returns 0 for success.
