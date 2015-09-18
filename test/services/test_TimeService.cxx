@@ -35,13 +35,13 @@ int test_TimeService(string gname) {
 
   cout << myname << line << endl;
   cout << myname << "Add the TimeService service." << endl;
-  scfg = "TimeService: { ClockSpeedExternal: 3.125e1 ClockSpeedOptical: 128 ClockSpeedTPC: 2 ClockSpeedTrigger: 16 DefaultBeamTime: 0 DefaultTrigTime: 0 FramePeriod: 1600 G4RefTime: 0 InheritClockConfig: false TrigModuleName: \"\" TriggerOffsetTPC: 0 service_type: \"TimeService\" }";
+  scfg = "ClockSpeedExternal: 3.125e1 ClockSpeedOptical: 128 ClockSpeedTPC: 2 ClockSpeedTrigger: 16 DefaultBeamTime: 0 DefaultTrigTime: 0 FramePeriod: 1600 G4RefTime: 0 InheritClockConfig: false TrigModuleName: \"\" TriggerOffsetTPC: 0 service_type: \"TimeService\"";
   cout << myname << "Configuration: " << scfg << endl;
   assert( ash.addService("TimeService", scfg) == 0 );
 
   cout << myname << line << endl;
   cout << myname << "Add the DatabaseUtil service." << endl;
-  scfg = "DatabaseUtil: { DBHostName: \"fnalpgsdev.fnal.gov\" DBName: \"dune_dev\" DBUser: \"dune_reader\" PassFileName: \".lpswd\" Port: 5438 ShouldConnect: false TableName: \"main_run\" ToughErrorTreatment: false service_type: \"DatabaseUtil\"}";
+  scfg = "DBHostName: \"fnalpgsdev.fnal.gov\" DBName: \"dune_dev\" DBUser: \"dune_reader\" PassFileName: \".lpswd\" Port: 5438 ShouldConnect: false TableName: \"main_run\" ToughErrorTreatment: false service_type: \"DatabaseUtil\"";
   cout << myname << "Configuration: " << scfg << endl;
   assert( ash.addService("DatabaseUtil", scfg) == 0 );
 
@@ -65,6 +65,7 @@ int test_TimeService(string gname) {
   ArtServiceHelper::close();
 
   cout << myname << line << endl;
+  cout << "Done." << endl;
   return 0;
 }
 

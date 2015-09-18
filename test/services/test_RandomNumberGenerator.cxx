@@ -35,7 +35,7 @@ int test_RandomNumberGenerator(string gname) {
 
   cout << myname << line << endl;
   cout << myname << "Add the RandomNumberGenerator service." << endl;
-  scfg = "RandomNumberGenerator: { service_type: \"RandomNumberGenerator\"}";
+  scfg = "";
   cout << myname << "Configuration: " << scfg << endl;
   assert( ash.addService("RandomNumberGenerator", scfg) == 0 );
 

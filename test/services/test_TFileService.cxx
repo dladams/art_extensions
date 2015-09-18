@@ -38,7 +38,7 @@ int test_TFileService(string ofilename) {
 
   cout << line << endl;
   cout << myname << "Add and fetch TFileService." << endl;
-  string scfg = "TFileService: { fileName: \"test.root\" service_type: \"TFileService\"}";
+  string scfg = "fileName: \"test.root\" service_type: \"TFileService\"";
   assert( ash.addService("TFileService", scfg) == 0 );
 
   cout << line << endl;
@@ -115,8 +115,8 @@ int main() {
   assert( ph2 != nullptr );
   assert( po1 == nullptr );
   cout << line << endl;
-  cout << "Done." << endl;
   cout << "Output file: " << ofilename << endl;
+  cout << "Done." << endl;
   return rstat;
 }
 

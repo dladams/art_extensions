@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <memory>
+#include "cetlib/filepath_maker.h"
 #include "fhiclcpp/ParameterSet.h"
 #include "fhiclcpp/make_ParameterSet.h"
 #include "art/Framework/Services/Registry/ActivityRegistry.h"
@@ -19,6 +20,7 @@ using std::endl;
 using std::setw;
 using std::find;
 using std::unique_ptr;
+using cet::filepath_lookup;
 using fhicl::ParameterSet;
 using fhicl::make_ParameterSet;
 using art::ServiceToken;
@@ -65,7 +67,7 @@ void ArtServiceHelper::close() {
   
 //**********************************************************************
 
-int ArtServiceHelper::addService(string name, string scfg) {
+int ArtServiceHelper::addService(string name, string sval, bool isFile) {
   string myname = "ArtServiceHelper::addService: ";
   if ( m_load == 1 || m_load == 2 ) {
     cout << myname << "ERROR: Services may not be added after services are loaded." << endl;
@@ -89,10 +91,72 @@ int ArtServiceHelper::addService(string name, string scfg) {
     cout << myname << "ERROR: CurrentModule service is configured automatically." << endl;
     return 7;
   }
+  string scfg;
+  if ( isFile ) {
+    string fname = sval;
+    string path = getenv("FHICL_FILE_PATH");
+    if ( path.size() == 0 ) path = ".";
+    filepath_lookup fpm(path); 
+    try { string filepath = fpm(fname); }
+    catch(...) {
+      cout << myname << "ERROR: Unable to find file " << fname << endl;
+      cout << myname << "Search path is " << path << endl;
+      return 8;
+    }
+    // Fetch the cfg for full file.
+    ParameterSet cfgfile;
+    make_ParameterSet(fname, fpm, cfgfile);
+    int fail = 0;
+    bool haveservices = false;
+    ParameterSet cfgsrv;
+    if ( cfgfile.is_empty() ) {
+      fail = 1;
+    } else {
+      // Fetch the services block.
+      // Either in services block or top level.
+      ParameterSet cfgallsrv;
+      haveservices = cfgfile.get_if_present<ParameterSet>("services", cfgallsrv);
+      const ParameterSet& cfglook = haveservices ? cfgfile : cfgallsrv;
+      // Get the configuration for this service.
+      if ( ! cfglook.get_if_present<ParameterSet>(name, cfgsrv) == 0 ) fail = 2;
+      if ( fail == 0 ) {
+        scfg = cfgsrv.to_string();
+      }
+    }
+    if ( fail ) {
+      cout << myname << "ERROR: Unable to find service " << name << " in file " << fname << endl;
+      cout << myname << "ERROR: Resolved file path: " << fpm(fname) << endl;
+      cout << myname << "ERROR: ";
+      if ( fail == 1 ) {
+        cout << "File is empty." << endl;
+      } else if ( fail == 2 ) {
+        if ( haveservices ) cout << "Block not found in services: " << name << endl;
+        else cout << "Block not found at top level: " << name << endl;
+      } else if ( fail == 3 ) {
+        cout << "Block for services is empty." << endl;
+      } else {
+        cout << "Unknown error." << endl;
+      }
+      return 9;
+    }
+  } else {
+    scfg = sval;
+  }
+  // scfgload embeds the the configuration in a named block and adds the field service_type
+  // if it is not already present.
+  ParameterSet cfg;
+  make_ParameterSet(scfg, cfg);
+  string scfgload = name + ": { " + scfg;
+  if ( ! cfg.has_key("service_type") ) {
+    scfgload += " service_type: " + name;
+  } else {
+    cout << myname << "WARNING: Service " << name << " has predefined value for service_type." << endl;
+  }
+  scfgload += " }";
   m_names.push_back(name);
   m_cfgmap[name] = scfg;
   if ( m_scfgs.size() ) m_scfgs += " ";
-  m_scfgs += scfg;
+  m_scfgs += scfgload;
   if ( name == "TFileService" ) m_needTriggerNamesService = true;
   if ( name == "RandomNumberGenerator" ) m_needCurrentModuleService = true;
   return 0;
@@ -178,7 +242,7 @@ void ArtServiceHelper::print(ostream& out) const {
   unsigned int wnam = 8;
   for ( string name : m_names ) if ( name.size() > wnam ) wnam = name.size();
   for ( string name : m_names ) {
-    out << setw(wnam+2) << name << ":: " << m_cfgmap.find(name)->second << endl;
+    out << setw(wnam+2) << name << ": { " << m_cfgmap.find(name)->second << " }" << endl;
   }
   if ( m_load == 0 ) out << "Services have not been loaded." << endl;
   else if ( m_load == 1 ) out << "Services have been loaded and are available." << endl;

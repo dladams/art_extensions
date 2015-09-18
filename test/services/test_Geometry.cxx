@@ -40,17 +40,17 @@ int test_Geometry(string gname) {
 
   cout << myname << line << endl;
   cout << myname << "Add the Geometry service." << endl;
-  scfg = "Geometry: { DisableWiresInG4: true GDML: \"dune35t4apa_v5.gdml\" Name: \"" + gname +
+  scfg = "DisableWiresInG4: true GDML: \"dune35t4apa_v5.gdml\" Name: \"" + gname +
          "\" ROOT: \"" + gname + "\" SortingParameters: { DetectorVersion: \"" + gname +
-         "\" } SurfaceY: 0 service_type: \"Geometry\" }";
+         "\" } SurfaceY: 0";
   cout << myname << "Configuration: " << scfg << endl;
   assert( ash.addService("Geometry", scfg) == 0 );
 
   cout << myname << line << endl;
   cout << myname << "Add the DUNE geometry helper service (required to load DUNE geometry)." << endl;
-  scfg = "ExptGeoHelperInterface: { service_provider: \"DUNEGeometryHelper\" service_type: \"ExptGeoHelperInterface\"}";
+  scfg = "service_provider: \"DUNEGeometryHelper\"";
   cout << myname << "Configuration: " << scfg << endl;
-  assert( ash.addService("DUNEGeometryHelper", scfg) == 0 );
+  assert( ash.addService("ExptGeoHelperInterface", scfg) == 0 );
 
   cout << myname << line << endl;
   cout << myname << "Load the services." << endl;

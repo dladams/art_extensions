@@ -35,7 +35,7 @@ int test_ArtServiceHelper() {
 
   cout << line << endl;
   cout << myname << "Add TFileService" << endl;
-  scfg = "TFileService: { fileName: \"mytest.root\" service_type: \"TFileService\"}";
+  scfg = "fileName: \"mytest.root\" service_type: \"TFileService\"";
   assert( ash.addService("TFileService", scfg) == 0 );
   ash.print();
 
@@ -46,8 +46,9 @@ int test_ArtServiceHelper() {
 
   cout << line << endl;
   cout << myname << "Add RandomNumberGenerator" << endl;
-  scfg = "RandomNumberGenerator: { service_type: \"RandomNumberGenerator\" }";
-  ash.addService("RandomNumberGenerator", scfg);
+  //scfg = "RandomNumberGenerator: { service_type: \"RandomNumberGenerator\" }";
+  //ash.addService("RandomNumberGenerator", scfg);
+  ash.addService("RandomNumberGenerator", "prodsingle_common_dune35t.fcl", true);
   ash.print();
   assert( ash.serviceNames().size() == 2 );
   assert( ash.serviceStatus() == 0 );
