@@ -5,3 +5,4 @@ cet_enable_asserts()
 
 add_subdirectory( AXService )
 add_subdirectory( services )
+add_subdirectory( fcl )

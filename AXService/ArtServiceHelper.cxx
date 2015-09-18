@@ -104,23 +104,54 @@ int ArtServiceHelper::addService(string name, string sval, bool isFile) {
       return 8;
     }
     // Fetch the cfg for full file.
-    ParameterSet cfgfile;
-    make_ParameterSet(fname, fpm, cfgfile);
+    ParameterSet cfg_file;
+    make_ParameterSet(fname, fpm, cfg_file);
     int fail = 0;
-    bool haveservices = false;
+    bool fileHasName = false;
+    bool servicesHasName = false;
+    bool userHasName = false;
+    const ParameterSet* pcfg = nullptr;
     ParameterSet cfgsrv;
-    if ( cfgfile.is_empty() ) {
+    if ( cfg_file.is_empty() ) {
       fail = 1;
     } else {
-      // Fetch the services block.
-      // Either in services block or top level.
-      ParameterSet cfgallsrv;
-      haveservices = cfgfile.get_if_present<ParameterSet>("services", cfgallsrv);
-      const ParameterSet& cfglook = haveservices ? cfgfile : cfgallsrv;
+      // Get configuration for services and services.user and determine
+      // where the service configuration is present.
+      ParameterSet cfg_services;
+      ParameterSet cfg_user;
+      fileHasName= cfg_services.has_key(name);
+      if ( cfg_file.get_if_present<ParameterSet>("services", cfg_services) ) {
+        servicesHasName = cfg_services.has_key(name);
+        if ( cfg_services.get_if_present<ParameterSet>("user", cfg_user) ) {
+          userHasName = cfg_services.has_key(name);
+        }
+      }
+      if ( userHasName ) {
+        pcfg = &cfg_user;
+        if ( servicesHasName )
+          cout << myname << "WARNING: Service " << name << " found in services.user and services blocks." << endl;
+        if ( fileHasName )
+          cout << myname << "WARNING: Service " << name << " found in services.user block and at file level." << endl;
+      } else if ( servicesHasName ) {
+        pcfg = &cfg_services;
+        if ( fileHasName )
+          cout << myname << "WARNING: Service " << name << " found in services block and at file level." << endl;
+      } else if ( fileHasName ) {
+        pcfg = &cfg_file;
+      } else {
+        fail = 2;
+      }
       // Get the configuration for this service.
-      if ( ! cfglook.get_if_present<ParameterSet>(name, cfgsrv) == 0 ) fail = 2;
       if ( fail == 0 ) {
-        scfg = cfgsrv.to_string();
+        if ( pcfg == nullptr ) {
+          fail = 3;
+        } else {
+          if ( pcfg->get_if_present<ParameterSet>(name, cfgsrv) ) {
+            scfg = cfgsrv.to_string();
+          } else {
+            fail = 4;
+          }
+        }
       }
     }
     if ( fail ) {
@@ -130,12 +161,9 @@ int ArtServiceHelper::addService(string name, string sval, bool isFile) {
       if ( fail == 1 ) {
         cout << "File is empty." << endl;
       } else if ( fail == 2 ) {
-        if ( haveservices ) cout << "Block not found in services: " << name << endl;
-        else cout << "Block not found at top level: " << name << endl;
-      } else if ( fail == 3 ) {
-        cout << "Block for services is empty." << endl;
-      } else {
-        cout << "Unknown error." << endl;
+        cout << "Block not found in file, services or services.user: " << name << endl;
+      } else if ( fail ) {
+        cout << "Unexpected error " << fail << endl;
       }
       return 9;
     }

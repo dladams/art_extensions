@@ -46,7 +46,7 @@ public:
   //          if isFile, base file name. Path to locate file is $FHICL_FILE_PATH.
   // Configuration format is the same as that found in the services block of an fcl file.
   // Returns 0 for success.
-  int addService(std::string name, std::string sval, bool isFile =false);
+  int addService(std::string name, std::string sval ="", bool isFile =false);
 
   // Load the services, i.e. make them available for use via art::ServiceHandle.
   // Returns the status: 1 for success, 2 for failure.

@@ -35,6 +35,7 @@ int test_LArProperties(string gname) {
 
   cout << myname << line << endl;
   cout << myname << "Add the LArProperties service." << endl;
+/*
   scfg += "AbsLengthEnergies: [ 4, 5, 6, 7, 8, 9,10, 11]\n";
   scfg += "AbsLengthSpectrum: [ 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 ]\n";
   scfg += "AlphaScintYield: 16800 AlphaScintYieldRatio: 5.6e-1\n";
@@ -76,8 +77,12 @@ int test_LArProperties(string gname) {
   scfg += "SlowScintSpectrum: [ 0.0,  0.04, 0.12, 0.27, 0.44, 0.62, 0.80, 0.91, 0.92, 0.85, 0.70, 0.50, 0.31, 0.13, 0.04,  0.01, 0.0]\n";
   scfg += "SternheimerA: 0.1956 SternheimerCbar: 5.2146 SternheimerK: 3.0 SternheimerX0: 0.20 SternheimerX1: 3.0\n";
   scfg += "Temperature: 87\n";
+*/
+  //scfg = "services_dune.fcl";
+  //scfg = "standard_reco_dune10kt.fcl";
+  scfg = "prodsingle_dune35t.fcl";
   cout << myname << "Configuration: " << scfg << endl;
-  assert( ash.addService("LArProperties", scfg) == 0 );
+  assert( ash.addService("LArProperties", scfg, true) == 0 );
 
   cout << myname << line << endl;
   cout << myname << "Add the DatabaseUtil service." << endl;
@@ -86,6 +91,7 @@ int test_LArProperties(string gname) {
   assert( ash.addService("DatabaseUtil", scfg) == 0 );
 
   cout << myname << line << endl;
+ash.print();
   cout << myname << "Load the services." << endl;
   assert( ash.loadServices() == 1 );
   ash.print();
