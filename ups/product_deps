@@ -11,7 +11,7 @@ product         version
 art     	v1_15_02
 gcc		v4_9_2
 
-cetbuildtools	v4_08_01	-	only_for_build
+cetbuildtools	v4_13_00	-	only_for_build
 end_product_list
 
   

@@ -3,6 +3,7 @@
 cet_test(fcldump SOURCES fcldump.cxx
   LIBRARIES
     fhiclcpp
+    ${CETLIB}
 )
 
 install_source()
