@@ -3,9 +3,16 @@
 cet_test(test_EventID SOURCES test_EventID.cxx
   LIBRARIES
     ${ART_FRAMEWORK_CORE}
+    ${ART_UTILITIES}
+    cetlib
 )
 
 cet_test(test_Event SOURCES test_Event.cxx
   LIBRARIES
+    ${ART_FRAMEWORK_PRINCIPAL}
     ${ART_FRAMEWORK_CORE}
+    ${ART_PERSISTENCY_PROVENANCE}
+    ${ART_UTILITIES}
+    fhiclcpp
+    cetlib
 )
