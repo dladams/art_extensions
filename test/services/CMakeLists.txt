@@ -44,4 +44,11 @@ cet_test(test_LArProperties SOURCES test_LArProperties.cxx
     LArProperties_service
 )
 
+cet_test(test_SeedService SOURCES test_SeedService.cxx
+  LIBRARIES
+    AXService
+    SeedService_service
+    ${ROOT_BASIC_LIB_LIST}
+)
+
 install_source()
