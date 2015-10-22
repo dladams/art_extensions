@@ -51,4 +51,10 @@ cet_test(test_SeedService SOURCES test_SeedService.cxx
     ${ROOT_BASIC_LIB_LIST}
 )
 
+cet_test(test_SignalShapingServiceDUNE35t SOURCES test_SignalShapingServiceDUNE35t.cxx
+  LIBRARIES
+    AXService
+    SignalShapingServiceDUNE35t_service
+)
+
 install_source()
