@@ -52,7 +52,7 @@ ostream& operator<<(ostream& out, const std::vector<T>& vec) {
 void print_block(string prefix, PSPtr pcfgs[], unsigned int nlevrem) {
   ParameterSet* pcfg = pcfgs[0].get();
   // First print the values.
-  for ( string key : pcfg->get_keys() ) {
+  for ( string key : pcfg->get_names() ) {
     if ( pcfg->is_key_to_table(key) ) continue;
     cout << prefix << key << ": ";
     if ( pcfg->is_key_to_sequence(key) ) {
@@ -89,15 +89,15 @@ void print_block(string prefix, PSPtr pcfgs[], unsigned int nlevrem) {
     cout << endl;
   }
   // Next the blocks.
-  for ( string key : pcfg->get_pset_keys() ) {
+  for ( string key : pcfg->get_pset_names() ) {
     cout << prefix << key << ": {";
     PSPtr pcfgnext(new ParameterSet);
     if ( ! pcfg->get_if_present<ParameterSet>(key, *pcfgnext) ) {
       cout << " ERROR!!!!!!!!!!!!!!!!" << endl;
       break;
     }
-    int nKeysNext = pcfgnext->get_keys().size();
-    if ( ! pcfgnext->get_keys().size() ) {
+    int nKeysNext = pcfgnext->get_names().size();
+    if ( ! pcfgnext->get_names().size() ) {
       cout << " }";
     } else if ( nlevrem > 0 ) {
       std::swap(pcfgs[1], pcfgnext);

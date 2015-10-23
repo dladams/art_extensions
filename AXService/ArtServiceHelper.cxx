@@ -217,12 +217,10 @@ int ArtServiceHelper::loadServices() {
     string scfgTriggerNamesService = "process_name: \"myproc\"";
     make_ParameterSet(scfgTriggerNamesService, cfgTriggerNamesService);
     std::vector<string> tns;
-    unique_ptr<TriggerNamesService> psrv(new TriggerNamesService(cfgTriggerNamesService, tns));
-    director.addSystemService(std::move(psrv));
+    director.addSystemService<TriggerNamesService>(cfgTriggerNamesService, tns);
   }
   if ( m_needCurrentModuleService ) {
-    unique_ptr<CurrentModule> psrv(new CurrentModule(ar()));
-    director.addSystemService(std::move(psrv));
+    director.addSystemService<CurrentModule>(ar());
   }
   // Make the services available
   // We need to keep this object around if we want to use the services.
