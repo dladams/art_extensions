@@ -177,10 +177,12 @@ int ArtServiceHelper::addService(string name, string sval, bool isFile) {
   string scfgload = name + ": { " + scfg;
   if ( ! cfg.has_key("service_type") ) {
     scfgload += " service_type: " + name;
+    scfgload += " }";
   } else {
+    scfgload += " }";
     cout << myname << "WARNING: Service " << name << " has predefined value for service_type." << endl;
+    cout << myname << scfgload << endl;
   }
-  scfgload += " }";
   m_names.push_back(name);
   m_cfgmap[name] = scfg;
   if ( m_scfgs.size() ) m_scfgs += " ";
