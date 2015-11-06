@@ -3,8 +3,8 @@
 // David Adams
 // September 2015
 //
-// This test demonstrates how to configure and use the LArSoft LArProperties
-// service outside the art framework.
+// This test demonstrates how to configure and use the LArSoft signal
+// service service outside the art framework.
 
 #include "dune/Utilities/SignalShapingServiceDUNE35t.h"
 #include <string>
