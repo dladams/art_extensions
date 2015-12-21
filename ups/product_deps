@@ -2,7 +2,7 @@
 
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent	art_extensions  v00_00_03
+parent	art_extensions  v00_00_04
 defaultqual	e9
 
 fcldir product_dir job
