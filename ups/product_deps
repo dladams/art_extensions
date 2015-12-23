@@ -10,6 +10,7 @@ fcldir product_dir job
 product         version
 art     	v1_17_05
 gcc             v4_9_3
+cetbuildtools   v4_18_01 - only_for_build
 end_product_list
   
 # e6  - with gcc 4.9.1 and -std=c++1y
