@@ -55,6 +55,8 @@ cet_test(test_SignalShapingServiceDUNE35t SOURCES test_SignalShapingServiceDUNE3
   LIBRARIES
     AXService
     SignalShapingServiceDUNE35t_service
+    Utilities
+    ${ROOT_BASIC_LIB_LIST}
 )
 
 install_source()
