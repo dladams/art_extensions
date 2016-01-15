@@ -1,0 +1,3 @@
+#include "pro2.fcl"
+
+services.MyGeometry: @local::tools.geo1

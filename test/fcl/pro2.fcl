@@ -1,0 +1,16 @@
+values.X: 1.23
+
+tools.sorter: {
+  service_provider: GeometrySorter
+  Option: 1
+}
+
+tools.geo1: {
+  IPar: 1
+  XPar: @local::values.X
+  SPar: "Hello"
+  SortTool: sorter
+}
+
+tools.geo2: @local::tools.geo1
+tools.geo2.IPar: 2

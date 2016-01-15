@@ -1,0 +1,21 @@
+BEGIN_PROLOG
+
+XVal: 1.23 
+
+sorter: {
+  service_provider: GeometrySorter
+  QuickSort: true
+  Option: 1
+}
+
+geo1: {
+  IPar: 1
+  XPar: @local::XVal
+  SPar: "Hello"
+  SortTool: sorter
+}
+
+geo2: @local::geo1
+geo2.IPar: 2
+
+END_PROLOG

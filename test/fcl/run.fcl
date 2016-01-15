@@ -1,0 +1,11 @@
+#include "pro.fcl"
+
+services: {
+  MyGeometry: @local::geo1
+}
+
+tools: {
+  sorter: @local::sorter
+  geo1:   @local::geo1
+  geo2:   @local::geo1
+}
