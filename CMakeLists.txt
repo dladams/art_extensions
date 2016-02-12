@@ -63,6 +63,7 @@ include(BuildPlugins)
 
 # sources
 add_subdirectory(AXService)
+add_subdirectory(AXExample)
 
 # scripts
 add_subdirectory(exe)
