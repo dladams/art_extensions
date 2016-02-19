@@ -23,13 +23,11 @@ cet_test(test_RandomNumberGenerator SOURCES test_RandomNumberGenerator.cxx
     ${ROOT_BASIC_LIB_LIST}
 )
 
-# TimeService is gone in larsoft v05_00_02
-#cet_test(test_TimeService SOURCES test_TimeService.cxx
-#  LIBRARIES
-#    AXService
-#    TimeService_service
-#    ${ROOT_BASIC_LIB_LIST}
-#)
+cet_test(test_DetectorClocksService SOURCES test_DetectorClocksService.cxx
+  LIBRARIES
+    AXService
+    ${ROOT_BASIC_LIB_LIST}
+)
 
 cet_test(test_DetectorProperties SOURCES test_DetectorProperties.cxx
   LIBRARIES

@@ -35,10 +35,17 @@ int test_DetectorPropertiesService(string gname) {
 
   cout << myname << line << endl;
   cout << myname << "Add the DetectorPropertiesService service." << endl;
-  scfg = "ElectronsToADC: 6.8906513e-3 NumberTimeSamples: 3200 ReadOutWindowSize: 3200 TimeOffsetU: 0 TimeOffsetV: 0 TimeOffsetZ: 0";
-  scfg += " service_provider: DetectorPropertiesServiceStandard";
+  scfg = "prodsingle_dune35t.fcl";
+  bool isFile = true;
   cout << myname << "Configuration: " << scfg << endl;
-  assert( ash.addService("DetectorPropertiesService", scfg) == 0 );
+  assert( ash.addService("DetectorPropertiesService", scfg, isFile) == 0 );
+
+  cout << myname << line << endl;
+  cout << myname << "Add other services." << endl;
+  assert( ash.addService("Geometry", scfg, isFile) == 0 );
+  assert( ash.addService("ExptGeoHelperInterface", scfg, isFile) == 0 );
+  assert( ash.addService("LArPropertiesService", scfg, isFile) == 0 );
+  assert( ash.addService("DetectorClocksService", scfg, isFile) == 0 );
 
   cout << myname << line << endl;
   cout << myname << "Load the services." << endl;

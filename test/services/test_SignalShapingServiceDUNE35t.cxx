@@ -69,11 +69,11 @@ int test_SignalShapingServiceDUNE35t() {
 
   cout << myname << line << endl;
   cout << myname << "Add other required services." << endl;
-  assert( ash.addService("DetectorProperties", scfg, isFile) == 0 );
-  assert( ash.addService("TimeService", scfg, isFile) == 0 );
+  assert( ash.addService("DetectorPropertiesService", scfg, isFile) == 0 );
+  assert( ash.addService("DetectorClocksService", scfg, isFile) == 0 );
   assert( ash.addService("Geometry", scfg, isFile) == 0 );
   assert( ash.addService("ExptGeoHelperInterface", scfg, isFile) == 0 );
-  assert( ash.addService("LArProperties", scfg, isFile) == 0 );
+  assert( ash.addService("LArPropertiesService", scfg, isFile) == 0 );
   assert( ash.addService("DatabaseUtil", scfg, isFile) == 0 );
 
   cout << myname << line << endl;

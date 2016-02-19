@@ -1,12 +1,12 @@
-// test_LArProperties.cxx
+// test_DetectorClocksService.cxx
 
 // David Adams
 // September 2015
 //
-// This test demonstrates how to configure and use the LArSoft LArProperties
+// This test demonstrates how to configure and use the LArSoft DetectorClocksService
 // service outside the art framework.
 
-#include "lardata/DetectorInfoServices/LArPropertiesServiceStandard.h"
+#include "lardata/DetectorInfoServices/DetectorClocksService.h"
 
 #include <string>
 #include <iostream>
@@ -18,11 +18,9 @@
 using std::string;
 using std::cout;
 using std::endl;
-using detinfo::LArProperties;
-using detinfo::LArPropertiesService;
 
-int test_LArPropertiesStandard(string gname) {
-  const string myname = "test_LArPropertiesStandardServiceStandard: ";
+int test_DetectorClocksService(string gname) {
+  const string myname = "test_DetectorClocksService: ";
   cout << myname << "Starting test" << endl;
 #ifdef NDEBUG
   cout << myname << "NDEBUG must be off." << endl;
@@ -34,30 +32,30 @@ int test_LArPropertiesStandard(string gname) {
   cout << myname << line << endl;
   cout << myname << "Fetch art service helper." << endl;
   ArtServiceHelper& ash = ArtServiceHelper::instance();
-
-  cout << myname << line << endl;
-  cout << myname << "Add the LArPropertiesService service." << endl;
   scfg = "prodsingle_dune35t.fcl";
-  cout << myname << "Configuration: " << scfg << endl;
-  assert( ash.addService("LArPropertiesService", scfg, true) == 0 );
+  bool isFile = true;
 
   cout << myname << line << endl;
-  cout << myname << "Print the services." << endl;
-  ash.print();
+  cout << myname << "Add the DetectorClocksService service." << endl;
+  cout << myname << "Configuration: " << scfg << endl;
+  assert( ash.addService("DetectorClocksService", scfg, isFile) == 0 );
 
   cout << myname << line << endl;
   cout << myname << "Load the services." << endl;
   assert( ash.loadServices() == 1 );
+  ash.print();
 
   cout << myname << line << endl;
-  cout << myname << "Get LArPropertiesServiceStandard service." << endl;
-  const LArProperties* plarsrv = art::ServiceHandle<LArPropertiesService>()->provider();
+  cout << myname << "Get DetectorClocksService service." << endl;
+  const detinfo::DetectorClocks* pclksrv =
+    art::ServiceHandle<detinfo::DetectorClocksService>()->provider();
 
   cout << myname << line << endl;
-  cout << myname << "Use LArPropertiesStandard." << endl;
-  cout << myname << "     Atomic number: " << plarsrv->AtomicNumber() << endl;
-  cout << myname << "  Radiation length: " << plarsrv->RadiationLength() << endl;
+  cout << myname << "Use DetectorClocksService service." << endl;
+  cout << "   TriggerTime: " << pclksrv->TriggerTime() << endl;
+  cout << "  BeamGateTime: " << pclksrv->BeamGateTime() << endl;
 
+  // Close services.
   cout << myname << line << endl;
   cout << myname << "Close services." << endl;
   ArtServiceHelper::close();
@@ -69,6 +67,6 @@ int test_LArPropertiesStandard(string gname) {
 
 int main() {
   string gname = "dune35t4apa_v5";
-  test_LArPropertiesStandard(gname);
+  test_DetectorClocksService(gname);
   return 0;
 }
