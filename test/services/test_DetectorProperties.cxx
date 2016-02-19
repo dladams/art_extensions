@@ -40,20 +40,6 @@ int test_DetectorPropertiesService(string gname) {
   cout << myname << "Configuration: " << scfg << endl;
   assert( ash.addService("DetectorPropertiesService", scfg) == 0 );
 
-/*
-  cout << myname << line << endl;
-  cout << myname << "Add the TimeService service." << endl;
-  scfg = "ClockSpeedExternal: 3.125e1 ClockSpeedOptical: 128 ClockSpeedTPC: 2 ClockSpeedTrigger: 16 DefaultBeamTime: 0 DefaultTrigTime: 0 FramePeriod: 1600 G4RefTime: 0 InheritClockConfig: false TrigModuleName: \"\" TriggerOffsetTPC: 0";
-  cout << myname << "Configuration: " << scfg << endl;
-  assert( ash.addService("TimeService", scfg) == 0 );
-
-  cout << myname << line << endl;
-  cout << myname << "Add the DatabaseUtil service." << endl;
-  scfg = "DBHostName: \"fnalpgsdev.fnal.gov\" DBName: \"dune_dev\" DBUser: \"dune_reader\" PassFileName: \".lpswd\" Port: 5438 ShouldConnect: false TableName: \"main_run\" ToughErrorTreatment: false";
-  cout << myname << "Configuration: " << scfg << endl;
-  assert( ash.addService("DatabaseUtil", scfg) == 0 );
-*/
-
   cout << myname << line << endl;
   cout << myname << "Load the services." << endl;
   assert( ash.loadServices() == 1 );
@@ -61,7 +47,9 @@ int test_DetectorPropertiesService(string gname) {
 
   cout << myname << line << endl;
   cout << myname << "Get DetectorPropertiesService service." << endl;
-  art::ServiceHandle<detinfo::DetectorPropertiesService> pdetsrv;
+  //art::ServiceHandle<detinfo::DetectorPropertiesService> pdetsrv;
+  const detinfo::DetectorProperties* pdetsrv =
+    art::ServiceHandle<detinfo::DetectorPropertiesService>()->provider();
 
   cout << myname << line << endl;
   cout << myname << "Use DetectorProperties service." << endl;
