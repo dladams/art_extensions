@@ -18,10 +18,10 @@
 using std::string;
 using std::cout;
 using std::endl;
-using detinfo::LArPropertiesStandard;
+using detinfo::LArProperties;
 using detinfo::LArPropertiesServiceStandard;
 
-int test_LArPropertiesServiceStandard(string gname) {
+int test_LArPropertiesStandard(string gname) {
   const string myname = "test_LArPropertiesStandardServiceStandard: ";
   cout << myname << "Starting test" << endl;
 #ifdef NDEBUG
@@ -57,12 +57,12 @@ int test_LArPropertiesServiceStandard(string gname) {
 
   cout << myname << line << endl;
   cout << myname << "Get LArPropertiesServiceStandard service." << endl;
-  const LArPropertiesStandard* plarsrv = art::ServiceHandle<LArPropertiesServiceStandard>()->provider();
+  const LArProperties* plarsrv = art::ServiceHandle<LArPropertiesServiceStandard>()->provider();
 
   cout << myname << line << endl;
   cout << myname << "Use LArPropertiesStandard." << endl;
-  cout << myname << "    LAr Density: " << plarsrv->Density() << endl;
-  cout << myname << "  DriftVelocity: " << plarsrv->DriftVelocity() << endl;
+  cout << myname << "     Atomic number: " << plarsrv->AtomicNumber() << endl;
+  cout << myname << "  Radiation length: " << plarsrv->RadiationLength() << endl;
 
   cout << myname << line << endl;
   cout << myname << "Close services." << endl;

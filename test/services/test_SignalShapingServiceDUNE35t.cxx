@@ -14,8 +14,8 @@
 #include <iomanip>
 #include "AXService/ArtServiceHelper.h"
 #include "art/Framework/Services/Registry/ServiceHandle.h"
-#include "Utilities/LArFFT.h"
-#include "Geometry/Geometry.h"
+#include "lardata/Utilities/LArFFT.h"
+#include "larcore/Geometry/Geometry.h"
 #include "TH1.h"
 
 using std::string;

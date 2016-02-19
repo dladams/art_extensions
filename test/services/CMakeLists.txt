@@ -31,14 +31,12 @@ cet_test(test_RandomNumberGenerator SOURCES test_RandomNumberGenerator.cxx
 #    ${ROOT_BASIC_LIB_LIST}
 #)
 
-# DetectorProperties is now abstract and is no longer a service or service interface.
-#cet_test(test_DetectorProperties SOURCES test_DetectorProperties.cxx
-#  LIBRARIES
-#    AXService
-#    DetectorProperties_service
-#    ${ART_UTILITIES}
-#    ${ROOT_BASIC_LIB_LIST}
-#)
+cet_test(test_DetectorProperties SOURCES test_DetectorProperties.cxx
+  LIBRARIES
+    AXService
+    ${ART_UTILITIES}
+    ${ROOT_BASIC_LIB_LIST}
+)
 
 cet_test(test_LArProperties SOURCES test_LArProperties.cxx
   LIBRARIES
@@ -57,7 +55,7 @@ cet_test(test_SignalShapingServiceDUNE35t SOURCES test_SignalShapingServiceDUNE3
   LIBRARIES
     AXService
     SignalShapingServiceDUNE35t_service
-    Utilities
+    lardata_Utilities
     ${ROOT_BASIC_LIB_LIST}
 )
 
