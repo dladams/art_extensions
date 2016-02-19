@@ -5,7 +5,7 @@
 //
 // Test Huffman compression in lardata/RawData/raw.cxx.
 
-#include "RawData/raw.h"
+#include "lardata/RawData/raw.h"
 #include <string>
 #include <iostream>
 

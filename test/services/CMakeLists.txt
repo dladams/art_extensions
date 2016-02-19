@@ -11,7 +11,7 @@ cet_test(test_TFileService SOURCES test_TFileService.cxx
 cet_test(test_Geometry SOURCES test_Geometry.cxx
   LIBRARIES
     AXService
-    Geometry
+    larcore_Geometry
     ${ROOT_BASIC_LIB_LIST}
 )
 
@@ -23,25 +23,27 @@ cet_test(test_RandomNumberGenerator SOURCES test_RandomNumberGenerator.cxx
     ${ROOT_BASIC_LIB_LIST}
 )
 
-cet_test(test_TimeService SOURCES test_TimeService.cxx
-  LIBRARIES
-    AXService
-    TimeService_service
-    ${ROOT_BASIC_LIB_LIST}
-)
+# TimeService is gone in larsoft v05_00_02
+#cet_test(test_TimeService SOURCES test_TimeService.cxx
+#  LIBRARIES
+#    AXService
+#    TimeService_service
+#    ${ROOT_BASIC_LIB_LIST}
+#)
 
-cet_test(test_DetectorProperties SOURCES test_DetectorProperties.cxx
-  LIBRARIES
-    AXService
-    DetectorProperties_service
-    ${ART_UTILITIES}
-    ${ROOT_BASIC_LIB_LIST}
-)
+# DetectorProperties is now abstract and is no longer a service or service interface.
+#cet_test(test_DetectorProperties SOURCES test_DetectorProperties.cxx
+#  LIBRARIES
+#    AXService
+#    DetectorProperties_service
+#    ${ART_UTILITIES}
+#    ${ROOT_BASIC_LIB_LIST}
+#)
 
 cet_test(test_LArProperties SOURCES test_LArProperties.cxx
   LIBRARIES
     AXService
-    LArProperties_service
+    lardata_DetectorInfoServices_LArPropertiesServiceStandard_service
 )
 
 cet_test(test_SeedService SOURCES test_SeedService.cxx

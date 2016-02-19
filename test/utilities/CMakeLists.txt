@@ -2,10 +2,10 @@
 
 cet_test(test_huffman SOURCES test_huffman.cxx
   LIBRARIES
-    RawData
+    lardata_RawData
 )
 
 cet_test(test_Compress SOURCES test_Compress.cxx
   LIBRARIES
-    RawData
+    lardata_RawData
 )

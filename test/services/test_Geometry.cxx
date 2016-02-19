@@ -13,7 +13,7 @@
 // See DXGeo/GeoHelper ctor from geometry name for an alternative to
 // loading the geometry service outside the art framework.
 
-#include "Geometry/Geometry.h"
+#include "larcore/Geometry/Geometry.h"
 
 #include <string>
 #include <iostream>

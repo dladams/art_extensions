@@ -6,7 +6,7 @@
 // This test demonstrates how to configure and use the LArSoft DetectorProperties
 // service outside the art framework.
 
-#include "Utilities/DetectorProperties.h"
+#include "lardata/DetectorInfo/DetectorProperties.h"
 
 #include <string>
 #include <iostream>

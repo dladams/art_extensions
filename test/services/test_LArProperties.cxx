@@ -6,7 +6,7 @@
 // This test demonstrates how to configure and use the LArSoft LArProperties
 // service outside the art framework.
 
-#include "Utilities/LArProperties.h"
+#include "lardata/DetectorInfoServices/LArPropertiesServiceStandard.h"
 
 #include <string>
 #include <iostream>
@@ -18,9 +18,11 @@
 using std::string;
 using std::cout;
 using std::endl;
+using detinfo::LArPropertiesStandard;
+using detinfo::LArPropertiesServiceStandard;
 
-int test_LArProperties(string gname) {
-  const string myname = "test_LArProperties: ";
+int test_LArPropertiesServiceStandard(string gname) {
+  const string myname = "test_LArPropertiesStandardServiceStandard: ";
   cout << myname << "Starting test" << endl;
 #ifdef NDEBUG
   cout << myname << "NDEBUG must be off." << endl;
@@ -34,10 +36,10 @@ int test_LArProperties(string gname) {
   ArtServiceHelper& ash = ArtServiceHelper::instance();
 
   cout << myname << line << endl;
-  cout << myname << "Add the LArProperties service." << endl;
+  cout << myname << "Add the LArPropertiesServiceStandard service." << endl;
   scfg = "prodsingle_dune35t.fcl";
   cout << myname << "Configuration: " << scfg << endl;
-  assert( ash.addService("LArProperties", scfg, true) == 0 );
+  assert( ash.addService("LArPropertiesServiceStandard", scfg, true) == 0 );
 
   cout << myname << line << endl;
   cout << myname << "Add the DatabaseUtil service." << endl;
@@ -54,11 +56,11 @@ int test_LArProperties(string gname) {
   assert( ash.loadServices() == 1 );
 
   cout << myname << line << endl;
-  cout << myname << "Get LArProperties service." << endl;
-  art::ServiceHandle<util::LArProperties> plarsrv;
+  cout << myname << "Get LArPropertiesServiceStandard service." << endl;
+  const LArPropertiesStandard* plarsrv = art::ServiceHandle<LArPropertiesServiceStandard>()->provider();
 
   cout << myname << line << endl;
-  cout << myname << "Use LArProperties service." << endl;
+  cout << myname << "Use LArPropertiesStandard." << endl;
   cout << myname << "    LAr Density: " << plarsrv->Density() << endl;
   cout << myname << "  DriftVelocity: " << plarsrv->DriftVelocity() << endl;
 
@@ -73,6 +75,6 @@ int test_LArProperties(string gname) {
 
 int main() {
   string gname = "dune35t4apa_v5";
-  test_LArProperties(gname);
+  test_LArPropertiesStandard(gname);
   return 0;
 }
