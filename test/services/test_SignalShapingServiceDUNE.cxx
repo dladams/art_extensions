@@ -1,4 +1,4 @@
-// test_SignalShapingServiceDUNE35t.cxx
+// test_SignalShapingServiceDUNE.cxx
 
 // David Adams
 // September 2015
@@ -6,7 +6,7 @@
 // This test demonstrates how to configure and use the LArSoft signal
 // service service outside the art framework.
 
-#include "dune/Utilities/SignalShapingServiceDUNE35t.h"
+#include "dune/Utilities/SignalShapingServiceDUNE.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -25,8 +25,8 @@ using std::vector;
 using std::setw;
 using std::ofstream;
 
-int test_SignalShapingServiceDUNE35t() {
-  const string myname = "test_SignalShapingServiceDUNE35t: ";
+int test_SignalShapingServiceDUNE() {
+  const string myname = "test_SignalShapingServiceDUNE: ";
   cout << myname << "Starting test" << endl;
 #ifdef NDEBUG
   cout << myname << "NDEBUG must be off." << endl;
@@ -54,14 +54,14 @@ int test_SignalShapingServiceDUNE35t() {
   scfg += "user: @local::dune35t_services\n";
   scfg += "}";
   {
-    ofstream ofile("test_SignalShapingServiceDUNE35t_services.fcl");
+    ofstream ofile("test_SignalShapingServiceDUNE_services.fcl");
     ofile << scfg << endl;
   }
   // This works if the file contains something like the above text.
-  scfg = "test_SignalShapingServiceDUNE35t_services.fcl";
+  scfg = "test_SignalShapingServiceDUNE_services.fcl";
   isFile = true;
   cout << myname << "Configuration: " << scfg << endl;
-  assert( ash.addService("SignalShapingServiceDUNE35t", scfg, isFile) == 0 );
+  assert( ash.addService("SignalShapingServiceDUNE", scfg, isFile) == 0 );
 
   cout << myname << line << endl;
   cout << myname << "Add the FFT service." << endl;
@@ -91,7 +91,7 @@ int test_SignalShapingServiceDUNE35t() {
 
   cout << myname << line << endl;
   cout << myname << "Get the signal shaping service." << endl;
-  art::ServiceHandle<util::SignalShapingServiceDUNE35t> psss;
+  art::ServiceHandle<util::SignalShapingServiceDUNE> psss;
 
   cout << myname << line << endl;
   cout << myname << "Retrieve shaping parameters." << endl;
@@ -153,6 +153,6 @@ int test_SignalShapingServiceDUNE35t() {
 }
 
 int main() {
-  test_SignalShapingServiceDUNE35t();
+  test_SignalShapingServiceDUNE();
   return 0;
 }

@@ -49,10 +49,10 @@ cet_test(test_SeedService SOURCES test_SeedService.cxx
     ${ROOT_BASIC_LIB_LIST}
 )
 
-cet_test(test_SignalShapingServiceDUNE35t SOURCES test_SignalShapingServiceDUNE35t.cxx
+cet_test(test_SignalShapingServiceDUNE SOURCES test_SignalShapingServiceDUNE.cxx
   LIBRARIES
     AXService
-    SignalShapingServiceDUNE35t_service
+    SignalShapingServiceDUNE_service
     lardata_Utilities
     ${ROOT_BASIC_LIB_LIST}
 )
