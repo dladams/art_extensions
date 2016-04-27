@@ -42,10 +42,10 @@ cet_test(test_LArProperties SOURCES test_LArProperties.cxx
     lardata_DetectorInfoServices_LArPropertiesServiceStandard_service
 )
 
-cet_test(test_SeedService SOURCES test_SeedService.cxx
+cet_test(test_LArSeedService SOURCES test_LArSeedService.cxx
   LIBRARIES
     AXService
-    SeedService_service
+    larsim_RandomUtils_LArSeedService_service
     ${ROOT_BASIC_LIB_LIST}
 )
 

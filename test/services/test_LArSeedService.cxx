@@ -1,4 +1,4 @@
-// test_SeedService.cxx
+// test_LArSeedService.cxx
 
 // David Adams
 // September 2015
@@ -6,7 +6,7 @@
 // This test demonstrates how to configure and use the LArSoft SeedService
 // service outside the art framework.
 
-#include "artextensions/SeedService/SeedService.hh"
+#include "larsim/RandomUtils/LArSeedService.h"
 
 #include <string>
 #include <iostream>
@@ -19,8 +19,8 @@ using std::string;
 using std::cout;
 using std::endl;
 
-int test_SeedService(string gname) {
-  const string myname = "test_SeedService: ";
+int test_LArSeedService(string gname) {
+  const string myname = "test_LArSeedService: ";
   cout << myname << "Starting test" << endl;
 #ifdef NDEBUG
   cout << myname << "NDEBUG must be off." << endl;
@@ -34,10 +34,10 @@ int test_SeedService(string gname) {
   ArtServiceHelper& ash = ArtServiceHelper::instance();
 
   cout << myname << line << endl;
-  cout << myname << "Add the SeedService service." << endl;
+  cout << myname << "Add the LArSeedService service." << endl;
   scfg = "endOfJobSummary: \"true\" policy: \"random\"";
   cout << myname << "Configuration: " << scfg << endl;
-  assert( ash.addService("SeedService", scfg) == 0 );
+  assert( ash.addService("LArSeedService", scfg) == 0 );
 
   cout << myname << line << endl;
   cout << myname << "Load the services." << endl;
@@ -45,11 +45,11 @@ int test_SeedService(string gname) {
   ash.print();
 
   cout << myname << line << endl;
-  cout << myname << "Get SeedService service." << endl;
-  art::ServiceHandle<artext::SeedService> psrv;
+  cout << myname << "Get LArSeedService service." << endl;
+  art::ServiceHandle<sim::LArSeedService> psrv;
 
   cout << myname << line << endl;
-  cout << myname << "Use SeedService service." << endl;
+  cout << myname << "Use LArSeedService service." << endl;
   try {
     cout << "  Seed: " << psrv->getSeed() << endl;
   } catch(...) {
@@ -69,6 +69,6 @@ int test_SeedService(string gname) {
 
 int main() {
   string gname = "dune35t4apa_v5";
-  test_SeedService(gname);
+  test_LArSeedService(gname);
   return 0;
 }
