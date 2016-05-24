@@ -16,6 +16,7 @@ using std::cout;
 using std::endl;
 using std::hex;
 using art::ServiceRegistry;
+using artext::ArtServiceHelper;
 
 int test_ArtServiceHelper() {
   const string myname = "test_ArtServiceHelper: ";

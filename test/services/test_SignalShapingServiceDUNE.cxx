@@ -24,6 +24,7 @@ using std::endl;
 using std::vector;
 using std::setw;
 using std::ofstream;
+using artext::ArtServiceHelper;
 
 int test_SignalShapingServiceDUNE() {
   const string myname = "test_SignalShapingServiceDUNE: ";

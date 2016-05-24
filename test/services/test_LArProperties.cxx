@@ -20,6 +20,7 @@ using std::cout;
 using std::endl;
 using detinfo::LArProperties;
 using detinfo::LArPropertiesService;
+using artext::ArtServiceHelper;
 
 int test_LArPropertiesStandard(string gname) {
   const string myname = "test_LArPropertiesStandardServiceStandard: ";

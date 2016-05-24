@@ -29,6 +29,7 @@ using art::ActivityRegistry;
 using art::ServiceRegistry;
 using art::TriggerNamesService;
 using art::CurrentModule;
+using artext::ArtServiceHelper;
 
 typedef ArtServiceHelper::NameList NameList;
 typedef ArtServiceHelper::ConfigurationMap ConfigurationMap;

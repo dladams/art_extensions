@@ -18,6 +18,7 @@
 using std::string;
 using std::cout;
 using std::endl;
+using artext::ArtServiceHelper;
 
 int test_DetectorClocksService(string gname) {
   const string myname = "test_DetectorClocksService: ";

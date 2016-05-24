@@ -22,6 +22,7 @@ using std::vector;
 using std::unique_ptr;
 using art::TFileService;
 using art::TFileDirectory;
+using artext::ArtServiceHelper;
 
 int test_TFileService(string ofilename) {
   const string myname = "test_TFileService: ";

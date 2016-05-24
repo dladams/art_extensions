@@ -18,6 +18,7 @@
 using std::string;
 using std::cout;
 using std::endl;
+using artext::ArtServiceHelper;
 
 int test_RandomNumberGenerator(string gname) {
   const string myname = "test_RandomNumberGenerator: ";

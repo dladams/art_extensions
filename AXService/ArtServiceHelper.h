@@ -18,6 +18,8 @@
 #include <memory>
 #include "art/Framework/Services/Registry/ServiceRegistry.h"
 
+namespace artext {
+
 class ArtServiceHelper {
 
 public:
@@ -90,5 +92,7 @@ private:
   art::ServiceRegistry::Operate* m_poperate;
 
 };
+
+}  // end namespace artext
 
 #endif
