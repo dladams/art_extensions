@@ -16,6 +16,7 @@ art_make(BASENAME_ONLY
     ${Boost_SYSTEM_LIBRARY}
     art_Framework_Services_System_TriggerNamesService_service
     art_Framework_Services_System_CurrentModule_service
+    canvas_Utilities
 )
 
 install_headers()

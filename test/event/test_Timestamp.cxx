@@ -5,7 +5,7 @@
 //
 // This test demonstrates how to use art::Timestamp.
 
-#include "art/Persistency/Provenance/Timestamp.h"
+#include "canvas/Persistency/Provenance/Timestamp.h"
 #include <string>
 #include <iostream>
 #include <iomanip>

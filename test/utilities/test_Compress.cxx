@@ -5,7 +5,7 @@
 //
 // Test Compress and Uncompress in raw.cxx.
 
-#include "lardata/RawData/raw.h"
+#include "lardataobj/RawData/raw.h"
 #include <string>
 #include <iostream>
 #include <sstream>

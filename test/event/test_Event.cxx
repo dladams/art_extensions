@@ -10,10 +10,10 @@
 
 #include "art/Framework/Principal/Event.h"
 #include "art/Persistency/Provenance/ProductMetaData.h"
-#include "art/Persistency/Provenance/ReleaseVersion.h"
-#include "art/Persistency/Provenance/ProcessConfiguration.h"
 #include "art/Framework/Principal/EventPrincipal.h"
-#include "art/Persistency/Provenance/ModuleDescription.h"
+#include "canvas/Persistency/Provenance/ReleaseVersion.h"
+#include "canvas/Persistency/Provenance/ProcessConfiguration.h"
+#include "canvas/Persistency/Provenance/ModuleDescription.h"
 #include <string>
 #include <iostream>
 
