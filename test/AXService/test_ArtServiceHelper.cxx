@@ -1,22 +1,24 @@
 // test_ArtServiceHelper.cxx
 
-#include "AXService/ArtServiceHelper.h"
+//#include "AXService/ArtServiceHelper.h"
+#include "dune/ArtSupport/ArtServiceHelper.h"
 
 #include <string>
 #include <iostream>
 #include <iomanip>
 #include <cassert>
-#include "art/Framework/Services/Registry/ServiceRegistry.h"
+#include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "art/Framework/Services/Optional/RandomNumberGenerator.h"
 #include "art/Framework/Services/Optional/TFileService.h"
 #include "art/Framework/Services/System/TriggerNamesService.h"
+
+#include "TFile.h"
 
 using std::string;
 using std::cout;
 using std::endl;
 using std::hex;
-using art::ServiceRegistry;
-using artext::ArtServiceHelper;
+using art::ServiceHandle;
 
 int test_ArtServiceHelper() {
   const string myname = "test_ArtServiceHelper: ";
@@ -34,18 +36,18 @@ int test_ArtServiceHelper() {
 
   ash.print();
 
-  cout << line << endl;
+  cout << myname << line << endl;
   cout << myname << "Add TFileService" << endl;
   scfg = "fileName: \"mytest.root\" service_type: \"TFileService\"";
   assert( ash.addService("TFileService", scfg) == 0 );
   ash.print();
 
-  cout << line << endl;
+  cout << myname << line << endl;
   cout << myname << "Try to add TFileService again" << endl;
   assert( ash.addService("TFileService", scfg) != 0 );
   ash.print();
 
-  cout << line << endl;
+  cout << myname << line << endl;
   cout << myname << "Add RandomNumberGenerator" << endl;
   //scfg = "RandomNumberGenerator: { service_type: \"RandomNumberGenerator\" }";
   //ash.addService("RandomNumberGenerator", scfg);
@@ -54,44 +56,37 @@ int test_ArtServiceHelper() {
   assert( ash.serviceNames().size() == 2 );
   assert( ash.serviceStatus() == 0 );
   
-  cout << line << endl;
+  cout << myname << line << endl;
   cout << myname << "Full configuration:" << endl;
   cout << myname << ash.fullServiceConfiguration() << endl;
 
-  cout << line << endl;
+  cout << myname << line << endl;
   cout << myname << "Load the services." << endl;
   assert( ash.loadServices() == 1 );
   ash.print();
 
-  cout << line << endl;
-  cout << "Fetch service registry." << endl;
-  ServiceRegistry& sr = ServiceRegistry::instance();
-  cout << myname << "Service registry address:  " << hex << &sr << endl;
-  cout << line << endl;
-  cout << "Check TriggerNamesService is available." << endl;
-  assert(sr.isAvailable<art::TriggerNamesService>());
-  cout << line << endl;
-  cout << "Check RandomNumberGenerator is available." << endl;
-  assert(sr.isAvailable<art::RandomNumberGenerator>());
-  cout << line << endl;
-  cout << "Check TFileService is available." << endl;
-  assert(sr.isAvailable<art::TFileService>());
+  cout << myname << line << endl;
+  cout << myname << "Check TriggerNamesService is available." << endl;
+  ServiceHandle<art::TriggerNamesService> htns;
+  cout << myname << "  " << &*htns << endl;
 
-  cout << line << endl;
-  cout << "Check RandomNumberGenerator is accessible." << endl;
-  sr.get<art::RandomNumberGenerator>();
-  cout << line << endl;
-  cout << "Check TFileService is accessible" << endl;
-  sr.get<art::TFileService>();   // This raise an exception!
-  cout << line << endl;
-  cout << "Check TriggerNameService is accessible" << endl;
-  sr.get<art::TriggerNamesService>();
+  cout << myname << line << endl;
+  cout << myname << "Check RandomNumberGenerator is available." << endl;
+  ServiceHandle<art::RandomNumberGenerator> hrng;
+  cout << myname << "  " << &*hrng << endl;
 
-  cout << line << endl;
+  cout << myname << line << endl;
+  cout << myname << "Check TFileService is available." << endl;
+  ServiceHandle<art::TFileService> htf;
+  cout << myname << "  " << &*hrng << endl;
+  cout << myname << "  TFile name: " << htf->file().GetName() << endl;
+
+  cout << myname << line << endl;
   cout << myname << "Done." << endl;
   return 0;
 }
 
 int main() {
   return test_ArtServiceHelper();
+  cout << "Exiting main." << endl;
 }
