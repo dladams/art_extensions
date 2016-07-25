@@ -1,6 +1,4 @@
 # art_extensions
 Extensions to the FNAL art framework
 
-* AXService/ArtServiceHelper facilitates the loading or art services outside the art framework.
-
-* test/services holds many tests demonstrating the use of various art and LArSoft services.
+The ArtServiceHelper and many of the tests are now moved to dunetpc.

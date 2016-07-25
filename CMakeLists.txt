@@ -62,7 +62,6 @@ include(ArtMake)
 include(BuildPlugins)
 
 # sources
-add_subdirectory(AXService)
 add_subdirectory(AXExample)
 
 # scripts
