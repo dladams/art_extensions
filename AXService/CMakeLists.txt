@@ -6,8 +6,10 @@
 # CMake instructions for the AXServices library which holds
 # helper classes for dealing with art services.
 
-art_make(BASENAME_ONLY
-  LIB_LIBRARIES
+art_make_library(
+  SOURCE
+    ArtServiceHelper.cxx
+  LIBRARIES
     art_Framework_EventProcessor
     art_Framework_Services_Registry
     art_Utilities
