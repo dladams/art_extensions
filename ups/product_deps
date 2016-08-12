@@ -2,13 +2,13 @@
 
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent	art_extensions  v00_00_08
+parent	art_extensions  v02_02_02
 defaultqual	e9
 
 fcldir product_dir job
 
 product         version
-art     	v2_00_03
+art     	v2_02_02
 gcc             v4_9_3a
 cetbuildtools   v4_18_01 - only_for_build
 end_product_list

@@ -23,18 +23,28 @@ using fhicl::ParameterSet;
 using fhicl::make_ParameterSet;
 
 typedef std::shared_ptr<ParameterSet> PSPtr;
-typedef std::vector<PSPtr> PSVector;
+typedef std::vector<PSPtr> PSPtrVector;
 typedef std::vector<int> IntVector;
 typedef std::vector<double> DoubleVector;
 typedef std::vector<string> StringVector;
 typedef std::vector<DoubleVector> DVVector;
 typedef std::vector<DVVector> DVVVector;
+typedef std::vector<ParameterSet> PSVector;
+typedef std::vector<PSPtr> PSPVector;
+
+//**********************************************************************
+
+// Delimiter.
 
 template<class T>
 string delim() { return ""; }
 
 template<>
 string delim<string>() { return "\""; }
+
+//**********************************************************************
+
+// Print a sequence.
 
 template<class T>
 ostream& operator<<(ostream& out, const std::vector<T>& vec) {
@@ -49,7 +59,12 @@ ostream& operator<<(ostream& out, const std::vector<T>& vec) {
   return out;
 }
 
+//**********************************************************************
+
+// Print a block.
+
 void print_block(string prefix, PSPtr pcfgs[], unsigned int nlevrem) {
+  const string myname = "fcldump:print_block: ";
   ParameterSet* pcfg = pcfgs[0].get();
   // First print the values.
   for ( string key : pcfg->get_names() ) {
@@ -68,7 +83,33 @@ void print_block(string prefix, PSPtr pcfgs[], unsigned int nlevrem) {
             try {
               cout << pcfg->get<DVVVector>(key);
             } catch (...) {
-              cout << pcfg->get<StringVector>(key);
+              try {
+                cout << pcfg->get<StringVector>(key);
+              } catch (...) {
+                try {
+                  // Trick case: sequnce of paremter sets.
+                  PSVector psets = pcfg->get<PSVector>(key);
+                  cout << "[";
+                  int submaxlev = nlevrem;
+                  if ( submaxlev > 0 ) {
+                    for ( const ParameterSet& pset : psets ) {
+                      cout << endl;
+                      PSPtrVector subcfgs(submaxlev, std::make_shared<ParameterSet>(pset));
+                      subcfgs[0] = std::make_shared<ParameterSet>(pset);
+                      cout << prefix << "{" << endl;
+                      print_block(prefix + "  ", &subcfgs[0], submaxlev-1);
+                      cout << prefix << "}";
+                    }
+                    cout << endl << prefix << "]";
+                  } else {
+                    for ( unsigned int ips=0; ips<psets.size(); ++ips ) cout << ".";
+                    cout << "]";
+                  }
+                } catch (fhicl::exception& exc) {
+                  cout << "ERROR: Unknown data type for sequence key " << key << endl;
+                  throw exc;
+                }
+              }
             }
           }
         }
@@ -82,7 +123,12 @@ void print_block(string prefix, PSPtr pcfgs[], unsigned int nlevrem) {
           double val = pcfg->get<double>(key);
           cout << val;
         } catch (...) {
-          cout << "\"" << pcfg->get<string>(key) << "\"";
+          try {
+            cout << "\"" << pcfg->get<string>(key) << "\"";
+          } catch (fhicl::exception& exc) {
+            cout << "ERROR: Unknown data type for non-sequence key " << key << endl;
+            throw exc;
+          }
         }
       }
     }
@@ -157,7 +203,7 @@ int main(int argc, char** argv) {
   cout << endl;
 
   // Fetch top-level configuration and print.
-  PSVector cfgs(maxlev, std::make_shared<ParameterSet>());
+  PSPtrVector cfgs(maxlev, std::make_shared<ParameterSet>());
   make_ParameterSet(fname, fpm, *cfgs[0]);
   string prefix;
   print_block(prefix, &cfgs[0], maxlev-1);
